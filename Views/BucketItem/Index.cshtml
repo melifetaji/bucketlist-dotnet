@@ -1,0 +1,29 @@
+<h1>Country Bucket List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Country Name</th>
+            <th>City Name</th>
+            <th>Budget</th>
+            <th>Completed</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.CountryName</td>
+                <td>@item.CityName</td>
+                <td>@item.Budget</td>
+                <td>@item.IsComplete</td>
+                <td><a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/BucketItem/Add" class="btn btn-primary">Add Country</a>

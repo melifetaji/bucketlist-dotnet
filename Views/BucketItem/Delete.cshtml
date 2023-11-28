@@ -1,0 +1,32 @@
+@model DB_CON.Models.BucketItem
+
+<h1>Are you sure you want to delete this item?</h1>
+
+<div>
+    <hr>
+    <label>ID</label>
+    <h3>@Model.Id</h3>
+    <hr>
+    <label>Country Name</label>
+    <h3>@Model.CountryName</h3>
+    <hr>
+    <label>City Name</label>
+    <h3>@Model.CityName</h3>
+    <hr>
+    <label>ID</label>
+    <h3>@Model.Id</h3>
+    <hr>
+    <label>Budget</label>
+    <h3>@Model.Budget</h3>
+    <hr>
+    <label>Completed</label>
+    <h3>@Model.IsComplete</h3>
+    <hr>
+
+    <form asp-action="DeleteAsync" asp-route-id="@Model.Id" method="post">
+        <input type="hidden" name="_method" value="DELETE" />
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+
+
+</div>
