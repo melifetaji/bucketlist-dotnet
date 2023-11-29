@@ -17,7 +17,8 @@ namespace DB_CON.Repositories
 
         public List<BucketItem> GetAll()
         {
-            return _dbContext.BucketItems.ToList();
+            return _dbContext.BucketItems.OrderBy(x => x.Id).ToList();
+
         }
 
 
@@ -47,5 +48,28 @@ namespace DB_CON.Repositories
 
             return item;
         }
+        public async Task UpdateAsync(BucketItem bucketItem)
+        {
+            if (bucketItem == null)
+            {
+                throw new Exception("Item does not exist");
+            }
+
+            _dbContext.BucketItems.Update(bucketItem);
+            await _dbContext.SaveChangesAsync();
+
+        }
+
+        // public async Task MarkAsCompleteAsync(int id)
+        // {
+        //     var item = FindOne(id);
+        //     if (item == null)
+        //     {
+        //         throw new Exception("Item does not exist");
+        //     }
+        //     item.IsComplete = true;
+        //     _dbContext.BucketItems.Update(item);
+        //     await _dbContext.SaveChangesAsync();
+        // }
     }
-}
+};

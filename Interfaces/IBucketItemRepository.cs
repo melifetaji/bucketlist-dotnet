@@ -8,5 +8,7 @@ namespace DB_CON.Interfaces
         Task DeleteAsync(int id);
 
         BucketItem FindOne(int id);
+        // Task MarkAsCompleteAsync(int id);
+        Task UpdateAsync(BucketItem bucketItem);
     }
 }

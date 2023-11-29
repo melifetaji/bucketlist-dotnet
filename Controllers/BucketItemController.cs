@@ -55,4 +55,20 @@ public class BucketItemController : Controller
         return View(item);
     }
 
+    [HttpGet]
+    public IActionResult Update(int id)
+    {
+        var item = _bucketItemRepository.FindOne(id);
+        return View(item);
+    }
+    [HttpPost]
+    public async Task<IActionResult> UpdateAsync(BucketItem bucketItem)
+    {
+        var item = _bucketItemRepository.FindOne(bucketItem.Id);
+        item.CityName = bucketItem.CityName;
+        item.CountryName = bucketItem.CountryName;
+        item.IsComplete = bucketItem.IsComplete;
+        await _bucketItemRepository.UpdateAsync(item);
+        return RedirectToAction("Index");
+    }
 };

@@ -1,0 +1,27 @@
+@model DB_CON.Models.BucketItem
+
+<h1>Update @Model.CountryName</h1>
+
+<form action="/BucketItem/Update" method="post">
+    <input type="hidden" id="Id" name="Id" value="@Model.Id">
+    <div class="form-group">
+        <label for="CountryName">Country Name:</label>
+        <input type="text" id="CountryName" name="CountryName" class="form-control" value="@Model.CountryName" />
+    </div>
+
+    <div class="form-group">
+        <label for="CityName">City Name:</label>
+        <input type="text" id="CityName" name="CityName" class="form-control" value="@Model.CityName" />
+    </div>
+
+    <div class="form-group">
+        <label for="Budget">Budget:</label>
+        <input type="number" id="Budget" name="Budget" class="form-control" value="@Model.Budget" />
+    </div>
+
+    <div class="form-group">
+        <label for="IsComplete">Is Complete:</label>
+        <input type="checkbox" id="IsComplete" name="IsComplete" class="form-check-input" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update Item</button>
+</form>
