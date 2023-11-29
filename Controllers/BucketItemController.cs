@@ -65,9 +65,12 @@ public class BucketItemController : Controller
     public async Task<IActionResult> UpdateAsync(BucketItem bucketItem)
     {
         var item = _bucketItemRepository.FindOne(bucketItem.Id);
+
         item.CityName = bucketItem.CityName;
         item.CountryName = bucketItem.CountryName;
+        item.Budget = bucketItem.Budget;
         item.IsComplete = bucketItem.IsComplete;
+
         await _bucketItemRepository.UpdateAsync(item);
         return RedirectToAction("Index");
     }
