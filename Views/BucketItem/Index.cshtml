@@ -30,7 +30,10 @@
                 @if (item.IsComplete == false)
                 {
                     <td>
-                        <a asp-action="Completed" asp-route-id="@item.Id">Complete</a>
+                        <form asp-action="MarkAsCompleted" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <input type="submit" value="Complete">
+                        </form>
                     </td>
                 }
             </tr>

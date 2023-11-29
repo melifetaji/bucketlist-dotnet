@@ -74,4 +74,10 @@ public class BucketItemController : Controller
         await _bucketItemRepository.UpdateAsync(item);
         return RedirectToAction("Index");
     }
+    [HttpPost]
+    public async Task<IActionResult> MarkAsCompletedAsync(int id)
+    {
+        await _bucketItemRepository.MarkAsCompleteAsync(id);
+        return RedirectToAction("Index");
+    }
 };
