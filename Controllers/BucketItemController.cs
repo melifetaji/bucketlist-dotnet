@@ -41,7 +41,7 @@ public class BucketItemController : Controller
         }
         return View(bucketItem);
     }
-    [HttpDelete]
+    [HttpPost]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _bucketItemRepository.DeleteAsync(id);

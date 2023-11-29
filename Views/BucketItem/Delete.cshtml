@@ -23,8 +23,7 @@
     <h3>@Model.IsComplete</h3>
     <hr>
 
-    <form asp-action="DeleteAsync" asp-route-id="@Model.Id" method="post">
-        <input type="hidden" name="_method" value="DELETE" />
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
         <button type="submit" class="btn btn-primary">Delete</button>
     </form>
 
