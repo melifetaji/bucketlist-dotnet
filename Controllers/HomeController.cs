@@ -15,7 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return RedirectToAction("Index", "BucketItem");
+        return View();
     }
 
     public IActionResult Privacy()
