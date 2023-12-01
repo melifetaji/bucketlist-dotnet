@@ -12,72 +12,130 @@ public class BucketItemController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly IBucketItemRepository _bucketItemRepository;
+    private readonly IBucketItemService _bucketItemService;
 
-    public BucketItemController(ApplicationDbContext dbContext, IBucketItemRepository bucketItemRepository)
+    public BucketItemController(ApplicationDbContext dbContext, IBucketItemRepository bucketItemRepository, IBucketItemService bucketItemService)
     {
         _dbContext = dbContext;
         _bucketItemRepository = bucketItemRepository;
+        _bucketItemService = bucketItemService;
     }
 
     [HttpGet]
     public IActionResult Index()
     {
-        var bucketItems = _bucketItemRepository.GetAll();
-        return View(bucketItems);
+        try
+        {
+            var bucketItems = _bucketItemService.GetAll();
+            return View(bucketItems);
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
+
     [HttpGet]
     public IActionResult Add()
     {
-        return View(new BucketItem());
+        try
+        {
+            return View(new BucketItem());
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
 
     [HttpPost]
     public IActionResult Add(BucketItem bucketItem)
     {
-        if (ModelState.IsValid)
+        try
         {
-            _bucketItemRepository.AddItem(bucketItem);
+
+            _bucketItemService.AddItem(bucketItem);
             return RedirectToAction("Index");
         }
-        return View(bucketItem);
-    }
-    [HttpPost]
-    public async Task<IActionResult> DeleteAsync(int id)
-    {
-        await _bucketItemRepository.DeleteAsync(id);
-        return RedirectToAction("Index");
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
 
     [HttpGet]
     public IActionResult Delete(int id)
     {
-        var item = _bucketItemRepository.FindOne(id);
-        return View(item);
+        try
+        {
+            var item = _bucketItemRepository.FindOne(id);
+            return View(item);
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteAsync(int id)
+    {
+        try
+        {
+            await _bucketItemService.DeleteItemAsync(id);
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
 
     [HttpGet]
     public IActionResult Update(int id)
     {
-        var item = _bucketItemRepository.FindOne(id);
-        return View(item);
+        try
+        {
+            var item = _bucketItemRepository.FindOne(id);
+            return View(item);
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
     [HttpPost]
     public async Task<IActionResult> UpdateAsync(BucketItem bucketItem)
     {
-        var item = _bucketItemRepository.FindOne(bucketItem.Id);
-
-        item.CityName = bucketItem.CityName;
-        item.CountryName = bucketItem.CountryName;
-        item.Budget = bucketItem.Budget;
-        item.IsComplete = bucketItem.IsComplete;
-
-        await _bucketItemRepository.UpdateAsync(item);
-        return RedirectToAction("Index");
+        try
+        {
+            await _bucketItemService.UpdateItemAsync(bucketItem);
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
     [HttpPost]
     public async Task<IActionResult> MarkAsCompletedAsync(int id)
     {
-        await _bucketItemRepository.MarkAsCompleteAsync(id);
-        return RedirectToAction("Index");
+        try
+        {
+            await _bucketItemRepository.MarkAsCompleteAsync(id);
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            ViewData["ErrorMessage"] = $"An error occurred: {e.Message}";
+            return View("Error");
+        }
     }
 };
