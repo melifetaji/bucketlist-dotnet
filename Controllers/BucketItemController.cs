@@ -10,14 +10,10 @@ namespace DB_CON.Controllers;
 
 public class BucketItemController : Controller
 {
-    private readonly ApplicationDbContext _dbContext;
-    private readonly IBucketItemRepository _bucketItemRepository;
     private readonly IBucketItemService _bucketItemService;
 
-    public BucketItemController(ApplicationDbContext dbContext, IBucketItemRepository bucketItemRepository, IBucketItemService bucketItemService)
+    public BucketItemController(IBucketItemService bucketItemService)
     {
-        _dbContext = dbContext;
-        _bucketItemRepository = bucketItemRepository;
         _bucketItemService = bucketItemService;
     }
 
@@ -71,7 +67,7 @@ public class BucketItemController : Controller
     {
         try
         {
-            var item = _bucketItemRepository.FindOne(id);
+            var item = _bucketItemService.FindOne(id);
             return View(item);
         }
         catch (Exception e)
@@ -101,7 +97,7 @@ public class BucketItemController : Controller
     {
         try
         {
-            var item = _bucketItemRepository.FindOne(id);
+            var item = _bucketItemService.FindOne(id);
             return View(item);
         }
         catch (Exception e)
@@ -129,7 +125,7 @@ public class BucketItemController : Controller
     {
         try
         {
-            await _bucketItemRepository.MarkAsCompleteAsync(id);
+            await _bucketItemService.MarkAsCompleteAsync(id);
             return RedirectToAction("Index");
         }
         catch (Exception e)

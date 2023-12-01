@@ -11,4 +11,5 @@ public interface IBucketItemService
     Task DeleteItemAsync(int id);
     Task UpdateItemAsync(BucketItem bucketItem);
     Task MarkAsCompleteAsync(int id);
+    BucketItem FindOne(int id);
 }

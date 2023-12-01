@@ -1,6 +1,7 @@
 using DB_CON.Models;
 using DB_CON.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using DB_CON.Controllers;
 namespace DB_CON.Repositories
 {
     public class BucketItemService : IBucketItemService
@@ -85,6 +86,22 @@ namespace DB_CON.Repositories
                 }
 
                 await _bucketItemRepository.MarkAsCompleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public BucketItem FindOne(int id)
+        {
+            try
+            {
+                var item = _bucketItemRepository.FindOne(id);
+                if (item is null)
+                {
+                    throw new Exception("Item does not exist");
+                }
+                return item;
             }
             catch (Exception e)
             {
